@@ -58,8 +58,22 @@ ManageCoursePage.contextTypes = {
     router: PropTypes.object
 }
 
-function mapStateToProps(state) {
+function getCourseById(id, courses) {
+    const course = courses.filter(course => course.id === id);
+    if (course) {
+        return course[0];
+    }
+
+    return null;
+}
+
+function mapStateToProps(state, ownProps) {
     let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+    const courseIdParam = ownProps.params.id;
+    if(courseIdParam) {
+        const existingCourse = getCourseById(courseIdParam, state.courses);
+        course = existingCourse || course;
+    }
 
     const authorOptions = state.authors.map(author => {
        return {
