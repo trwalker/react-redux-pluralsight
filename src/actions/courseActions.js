@@ -10,15 +10,15 @@ export function loadCoursesError(error) {
 }
 
 export function createCourseSuccess(course) {
-    return { type: types.CREATE_COURSE_SUCCESS, course }
+    return { type: types.CREATE_COURSE_SUCCESS, course };
 }
 
 export function updateCourseSuccess(course) {
-    return { type: types.UPDATE_COURSE_SUCCESS, course }
+    return { type: types.UPDATE_COURSE_SUCCESS, course };
 }
 
 export function saveCourseError(error) {
-    return { type: types.SAVE_COURSE_ERROR, course: null, error }
+    return { type: types.SAVE_COURSE_ERROR, course: null, error };
 }
 
 export function loadCourses() {
@@ -38,7 +38,7 @@ export function saveCourse(course) {
     return dispatch => {
         return courseService.saveCourse(course, (isNew, savedCourse, error) => {
             if(!error) {
-                isNew ? dispatch(createCourseSuccess(savedCourse)) : dispatch(updateCourseSuccess(savedCourse))
+                isNew ? dispatch(createCourseSuccess(savedCourse)) : dispatch(updateCourseSuccess(savedCourse));
             }
             else {
                 dispatch(saveCourseError(error));

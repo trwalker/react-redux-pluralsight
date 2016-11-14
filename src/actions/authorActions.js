@@ -6,7 +6,7 @@ export function loadAuthorsSuccess(authors) {
 }
 
 export function loadAuthorsError(error) {
-    return { type: types.LOAD_AUTHORS_ERROR, authors: [], error: error }
+    return { type: types.LOAD_AUTHORS_ERROR, authors: [], error: error };
 }
 
 export function loadAuthors() {
