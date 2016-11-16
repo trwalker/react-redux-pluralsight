@@ -1,20 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import Header from './common/Header';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
     render() {
         return (
             <div className="container-fluid">
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <Link to="/" className="navbar-brand">React Redux</Link>
-                        </div>
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
-                            <p className="navbar-text navbar-right">Signed in as <a href="#" className="navbar-link">Timbo Slice</a></p>
-                        </div>
-                    </div>
-                </nav>
+                <Header loading={this.props.loading} />
                 {this.props.children}
             </div>
         );
@@ -22,7 +14,14 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        loading: state.ajaxCallsInProgress > 0
+    };
+}
+
+export default connect(mapStateToProps)(App);

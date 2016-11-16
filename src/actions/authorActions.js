@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import authorService from '../services/authorService';
+import { beginAjaxCall } from '../actions/ajaxStatusActions';
 
 export function loadAuthorsSuccess(authors) {
     return { type: types.LOAD_AUTHORS_SUCCESS, authors: authors };
@@ -11,6 +12,7 @@ export function loadAuthorsError(error) {
 
 export function loadAuthors() {
     return dispatch => {
+        dispatch(beginAjaxCall());
         authorService.loadAuthors((authors, error) => {
             if(!error) {
                 dispatch(loadAuthorsSuccess(authors));

@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import courseService from '../services/courseService';
+import { beginAjaxCall } from '../actions/ajaxStatusActions';
 
 export function loadCoursesSuccess(courses) {
     return { type: types.LOAD_COURSES_SUCCESS, courses };
@@ -23,6 +24,7 @@ export function saveCourseError(error) {
 
 export function loadCourses() {
     return dispatch => {
+        dispatch(beginAjaxCall());
         return courseService.getCourses((courses, error) => {
             if(!error) {
                 dispatch(loadCoursesSuccess(courses));
@@ -36,6 +38,7 @@ export function loadCourses() {
 
 export function saveCourse(course) {
     return dispatch => {
+        dispatch(beginAjaxCall());
         return courseService.saveCourse(course, (isNew, savedCourse, error) => {
             if(!error) {
                 isNew ? dispatch(createCourseSuccess(savedCourse)) : dispatch(updateCourseSuccess(savedCourse));
